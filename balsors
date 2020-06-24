@@ -1,0 +1,74 @@
+
+[root@nixos:/home/nixos]# lsblk -f
+NAME   FSTYPE      LABEL                      UUID                                 FSAVAIL FSUSE% MOUNTPOINT
+loop0  squashfs                                                                          0   100% /nix/.ro-store
+sda                                                                                               
+├─sda1 vfat        boot                       8D54-7ECD                                           
+└─sda2 crypto_LUKS                            0d41e1c2-a976-44c2-bcab-5622ff9edd1e                
+sdb    iso9660     nixos-minimal-20.03-x86_64 1970-01-01-00-00-01-00                              
+├─sdb1 iso9660     nixos-minimal-20.03-x86_64 1970-01-01-00-00-01-00                     0   100% /iso
+└─sdb2 vfat        EFIBOOT                    1234-5678                                           
+sr0                                                                                               
+
+[root@nixos:/home/nixos]# cryptsetup luksOpen /dev/sda2 nixos-enc
+WARNING: Locking directory /run/cryptsetup is missing!
+Enter passphrase for /dev/sda2: 
+
+[root@nixos:/home/nixos]# lsblk -f
+NAME          FSTYPE      LABEL                      UUID                                   FSAVAIL FSUSE% MOUNTPOINT
+loop0         squashfs                                                                            0   100% /nix/.ro-store
+sda                                                                                                        
+├─sda1        vfat        boot                       8D54-7ECD                                             
+└─sda2        crypto_LUKS                            0d41e1c2-a976-44c2-bcab-5622ff9edd1e                  
+  └─nixos-enc LVM2_member                            hDpGSp-fcdY-mYXJ-MeQK-HFln-9iIV-B5ipSC                
+sdb           iso9660     nixos-minimal-20.03-x86_64 1970-01-01-00-00-01-00                                
+├─sdb1        iso9660     nixos-minimal-20.03-x86_64 1970-01-01-00-00-01-00                       0   100% /iso
+└─sdb2        vfat        EFIBOOT                    1234-5678                                             
+sr0                                                                                                        
+
+[root@nixos:/home/nixos]# vgscan 
+  Reading all physical volumes.  This may take a while...
+  Found volume group "nixos-vg" using metadata type lvm2
+
+[root@nixos:/home/nixos]# vg
+vgcfgbackup    vgchange       vgconvert      vgdisplay      vgextend       vgimportclone  vgmknodes      vgremove       vgs            vgsplit        
+vgcfgrestore   vgck           vgcreate       vgexport       vgimport       vgmerge        vgreduce       vgrename       vgscan         
+
+[root@nixos:/home/nixos]# vgchange -ay nixos-vg 
+  2 logical volume(s) in volume group "nixos-vg" now active
+
+[root@nixos:/home/nixos]# lvs
+  LV   VG       Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  root nixos-vg -wi-a----- 281.07g                                                    
+  swap nixos-vg -wi-a-----  16.00g                                                    
+
+[root@nixos:/home/nixos]# mount /dev/nixos-vg/root /mnt
+
+[root@nixos:/home/nixos]# mkdir boot
+
+[root@nixos:/home/nixos]# mv boot/ /mnt
+
+[root@nixos:/home/nixos]# mount /dev/sda1 /mnt/boot/
+
+[root@nixos:/home/nixos]# nixos-install 
+building the configuration in /mnt/etc/nixos/configuration.nix...
+warning: you don't have Internet access; disabling some network-dependent features
+error: unable to download 'https://github.com/rycee/home-manager/archive/1f174f668109765183f96b43d56ee24ab02c1c05.tar.gz': Couldn't resolve host name (6)
+(use '--show-trace' to show detailed location information)
+
+[root@nixos:/home/nixos]# wpa_passphrase 'Hol vagyunk geci?!' BillaParkolo > /etc/wpa_supplicant.conf
+
+[root@nixos:/home/nixos]# systemctl restart wpa_supplicant.service 
+
+[root@nixos:/home/nixos]# ping www.google.com
+ping: www.google.com: Name or service not known
+
+[root@nixos:/home/nixos]# ping www.google.com
+PING www.google.com(sfo03s08-in-x04.1e100.net (2607:f8b0:4005:809::2004)) 56 data bytes
+64 bytes from sfo03s08-in-x04.1e100.net (2607:f8b0:4005:809::2004): icmp_seq=1 ttl=116 time=79.6 ms
+^C
+--- www.google.com ping statistics ---
+2 packets transmitted, 1 received, 50% packet loss, time 1002ms
+rtt min/avg/max/mdev = 79.558/79.558/79.558/0.000 ms
+
+[root@nixos:/home/nixos]# nixos-install
