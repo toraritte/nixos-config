@@ -623,8 +623,11 @@ in
 
   # https://releases.nixos.org/nix-dev/2015-July/017657.html
   # https://nixos.org/nixos/options.html#services.logind
-  # https://www.freedesktop.org/software/systemd/man/logind.conf.html#RuntimeDirectorySize=
-  services.logind.extraConfig = "RuntimeDirectorySize=12G";
+  # https://www.freedesktop.org/software/systemd/man/logind.conf.html
+  services.logind.extraConfig = ''
+    RuntimeDirectorySize=12G
+    HandleLidSwitchDocked=ignore
+  '';
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
