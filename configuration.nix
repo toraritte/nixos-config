@@ -46,39 +46,6 @@ in
       historySize = 1000000;
       historyFileSize = 1000000;
 
-      # TODO: How should these be done?
-      # # GIT STATUS IN BASH PROMPT
-      # source ~/dotfiles/add/git-prompt.sh
-      # # add git completion
-      # git_completion_file=~/git-completion.bash
-      # if [ ! -f $git_completion_file ]; then
-      #   (cd ~ && curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash)
-      # fi
-      # source $git_completion_file
-      # # + for staged, * if unstaged.
-      # GIT_PS1_SHOWDIRTYSTATE=1¬
-      # # $ if something is stashed.
-      # GIT_PS1_SHOWSTASHSTATE=1¬
-      # # % if there are untracked files.
-      # GIT_PS1_SHOWUNTRACKEDFILES=1¬
-      # # <,>,<> behind, ahead, or diverged from upstream.
-      # GIT_PS1_SHOWUPSTREAM=1
-
-      # # bash prompt
-      # # "She's saying ... a bunch of stuff. Look, have you tried drugs?"
-      # PS1='\[\e[33m\]$(__git_ps1 "%s") \[\e[m\]\[\e[32m\]\u@\h \[\e[m\] \[\e[01;30m\][\w]\[\033[0m\]\n\j \[\e[01;30m\][\t]\[\033[0m\] '
-
-      # # enable programmable completion features (you don't need to enable
-      # # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-      # # sources /etc/bash.bashrc).
-      # if ! shopt -oq posix; then
-      #   if [ -f /usr/share/bash-completion/bash_completion ]; then
-      #     . /usr/share/bash-completion/bash_completion
-      #   elif [ -f /etc/bash_completion ]; then
-      #     . /etc/bash_completion
-      #   fi
-      # fi
-
       # TODO source from file (e.g., .bashrc)
       initExtra = ''
         # If not running interactively, don't do anything
@@ -176,19 +143,6 @@ in
         # Enable bash support for FZF
         source "$(fzf-share)/key-bindings.bash"
         source "$(fzf-share)/completion.bash"
-
-        # # Enable `git` completion (may be unnecessary)
-        # NOTE These seem to be unncecessary on NixOS
-        # git_completion_file=~/git-completion.bash
-        # if [ ! -f $git_completion_file ]; then
-        #   (cd ~ && curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash)
-        # fi
-        # source $git_completion_file
-        # git_prompt_sh=~/git-prompt.sh
-        # if [ ! -f $git_completion_file ]; then
-        #   (cd ~ && curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh)
-        # fi
-        # source ~/dotfiles/add/git-prompt.sh
 
         # aliases ======================================================
         alias ll='ls -alF --group-directories-first --color'
