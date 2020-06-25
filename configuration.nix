@@ -266,9 +266,11 @@ in
         tabular
         undotree
         vim-airline
+        vim-airline-themes
         vim-bufferline
         vim-elixir
         vim-obsession
+        vim-peekaboo
         vim-signify
         vim-unimpaired
         vim-vinegar
@@ -430,14 +432,24 @@ in
         " === Plugin configuration   {{{1
         " ========================
 
+        " peekaboo {{{2
+        let g:peekaboo_window = 'belowright 30new'
+
+        " airline {{{2
+        let g:airline_theme='distinguished'
+
         " fzf-vim {{{2
-        nnoremap <leader><C-r> :History:<CR>
+        nnoremap <leader><C-n> :History:<CR>
+        nnoremap <leader><C-m> :History/<CR>
         nnoremap <leader><C-o> :Files<CR>
         nnoremap <leader><C-l> :Lines<CR>
-        nnoremap <leader><C-i> :BLines<CR>
+        nnoremap <leader><C-b> :BLines<CR>
         nnoremap <leader><C-k> :Buffers<CR>
         nnoremap <leader><C-j> :Ag<CR>
         nnoremap <leader><C-w> :Windows<CR>
+        nnoremap <leader><C-g> :Commits<CR>
+        nnoremap <leader><C-p> :BCommits<CR>
+        nnoremap <leader><C-h> :History<CR>
         " TODO this may not be needed now that YouCompleteMe is used
         " imap <c-x><c-l> <plug>(fzf-complete-line)
 
