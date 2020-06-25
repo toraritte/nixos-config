@@ -130,21 +130,20 @@ in
         # ==============================================================
         # fzf ==========================================================
         # ==============================================================
-        # TODO clean up the mess
-        fzf_command='find .'
-        export FZF_DEFAULT_COMMAND=$fzf_command
-        export FZF_CTRL_T_COMMAND=$fzf_command
-        export FZF_ALT_C_COMMAND=$fzf_command
-        fzf_opts="--height 70% +i --preview='head -$LINES {}'"
-        export FZF_DEFAULT_OPTS=$fzf_opts
-        export FZF_CTRL_R_OPTS=$fzf_opts
-        export FZF_TMUX=$(which fzf-tmux)
-        export FZF_TMUX_OPTS=$fzf_opts
-        export FZF_TMUX_HEIGHT="70%"
-        fzf_completion_opts=$fzf_opts' --multi'
-        export FZF_COMPLETION_OPTS=$fzf_completion_opts
-        export FZF_CTRL_T_OPTS=$fzf_completion_opts
-        export FZF_ALT_C_OPTS=$fzf_completion_opts
+        FZF_DEFAULT_COMMAND='find .'
+        FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+        FZF_ALT_C_COMMAND=$FZF_DEFAULT_COMMAND
+
+        FZF_DEFAULT_OPTS="--height 70% +i"
+        FZF_CTRL_R_OPTS=$FZF_DEFAULT_OPTS
+
+        FZF_TMUX=$(which fzf-tmux)
+        FZF_TMUX_OPTS=$FZF_DEFAULT_OPTS
+        FZF_TMUX_HEIGHT="70%"
+
+        FZF_ALT_C_OPTS=$FZF_DEFAULT_OPTS" --multi"
+        FZF_CTRL_T_OPTS=$FZF_ALT_C_OPTS" --preview='head -$LINES {}'"
+        FZF_COMPLETION_OPTS=$FZF_CTRL_T_OPTS
         # ==============================================================
         # unified bash history =========================================
         # ==============================================================
@@ -269,6 +268,7 @@ in
         undotree
         vim-airline
         vim-elixir
+        vim-obsession
         vim-signify
         vim-unimpaired
         vim-vinegar
