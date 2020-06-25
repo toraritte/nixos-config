@@ -260,7 +260,6 @@ in
         fzf-vim
         goyo
         limelight-vim
-        matchit-zip
         repeat
         # seoul256
         surround
