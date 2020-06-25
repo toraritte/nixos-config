@@ -557,12 +557,12 @@ in
   #     [ { name = "root"; ...} ]
   boot.initrd.luks.devices = {
     luksroot = {
-      device = "/dev/disk/by-uuid/da9f2329-e45f-4302-b77a-76f47a3e8f52";
+      device = "/dev/" CHANGE THIS;
       preLVM = true;
     };
   };
 
-  networking.hostName = "mandarine"; # Define your hostname.
+  networking.hostName = CHANGE THIS; # Define your hostname.
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
