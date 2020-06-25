@@ -266,6 +266,7 @@ in
         tabular
         undotree
         vim-airline
+        vim-bufferline
         vim-elixir
         vim-obsession
         vim-signify
