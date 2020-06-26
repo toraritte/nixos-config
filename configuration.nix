@@ -338,6 +338,11 @@ in
         inoremap <leader>{<CR> {<CR>}<ESC>O
         autocmd FileType nix inoremap {<CR> {<CR>};<ESC>O
 
+        " 44 instead of <C-^> {{{2
+        nnoremap 44 <C-^>
+        " 99 instead of <C-w>w {{{2
+        nnoremap 99 <C-w>w
+
         " \yy - copy entire buffer to system clipboard {{{2
         nnoremap <leader>yy :%yank +<CR>
 
