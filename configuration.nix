@@ -35,6 +35,7 @@ in
       signal-desktop
       silver-searcher
       st
+      tor-browser-bundle-bin
       tree
     ];
 
@@ -328,12 +329,13 @@ in
 
         " Auto-close mappings {{{2
         " https://stackoverflow.com/a/34992101/1498178
-        inoremap " ""<left>
-        inoremap ' ''\''<left>
-        inoremap ( ()<left>
-        inoremap [ []<left>
-        inoremap { {}<left>
-        inoremap {<CR> {<CR>}<ESC>O
+        inoremap <leader>" ""<left>
+        inoremap ` ``<left>
+        inoremap <leader>' ''\''<left>
+        inoremap <leader>( ()<left>
+        inoremap <leader>[ []<left>
+        inoremap <leader>{ {}<left>
+        inoremap <leader>{<CR> {<CR>}<ESC>O
         autocmd FileType nix inoremap {<CR> {<CR>};<ESC>O
 
         " \yy - copy entire buffer to system clipboard {{{2
@@ -567,6 +569,7 @@ in
     # (maybe alias  it?) or,  if logged  in as  root, just
     # invoke `nix-shell '<nixpkgs>' -p vim` and Bob's your
     # uncle.'
+    bind # for `dig` &c
     curl
     git
     htop
@@ -574,6 +577,7 @@ in
   ];
 
   # services.freeswitch.enable = true;
+  services.tor.client.enable = true;
 
   # https://releases.nixos.org/nix-dev/2015-July/017657.html
   # https://nixos.org/nixos/options.html#services.logind
