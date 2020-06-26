@@ -24,7 +24,6 @@ in
   home-manager.users.toraritte = {
 
     home.packages = with pkgs; [
-      curl
       dmenu
       fzf
       google-chrome
@@ -37,6 +36,7 @@ in
       st
       tor-browser-bundle-bin
       tree
+      tor-browser-bundle-bin
     ];
 
     # the meaning is the same as `services.<x>.enable` in nixos - install and use with settings
@@ -530,12 +530,12 @@ in
   #     [ { name = "root"; ...} ]
   boot.initrd.luks.devices = {
     luksroot = {
-      device = "/dev/" CHANGE THIS;
+      device = "/dev/sda2";
       preLVM = true;
     };
   };
 
-  networking.hostName = CHANGE THIS; # Define your hostname.
+  networking.hostName = "fosbodon"; # Define your hostname.
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -578,6 +578,8 @@ in
     curl
     git
     htop
+    pavucontrol
+    st
     tree
   ];
 
