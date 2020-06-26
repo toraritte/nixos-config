@@ -27,15 +27,12 @@ in
       dmenu
       fzf
       google-chrome
-      htop
       nixops
       par
       remmina
       signal-desktop
       silver-searcher
       st
-      tor-browser-bundle-bin
-      tree
       tor-browser-bundle-bin
     ];
 
@@ -226,7 +223,7 @@ in
         vim-elixir
         vim-obsession
         vim-peekaboo
-        vim-signify
+        # vim-signify # use fugitive's `:Gdiff :0` instead
         vim-unimpaired
         vim-vinegar
         wombat256
@@ -530,12 +527,12 @@ in
   #     [ { name = "root"; ...} ]
   boot.initrd.luks.devices = {
     luksroot = {
-      device = "/dev/sda2";
+      device = "/dev/" CHANGE THIS;
       preLVM = true;
     };
   };
 
-  networking.hostName = "fosbodon"; # Define your hostname.
+  networking.hostName = CHANGE THIS; # Define your hostname.
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -579,7 +576,6 @@ in
     git
     htop
     pavucontrol
-    st
     tree
   ];
 
