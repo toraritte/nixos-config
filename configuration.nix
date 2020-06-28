@@ -86,12 +86,18 @@ in
         EDITOR=$(which vim)
         MANWIDTH=80
         ERL_AFLAGS="-kernel shell_history enabled"
+
+        # Android Studio would only open up with blank windows
+        # https://unix.stackexchange.com/questions/368817/blank-android-studio-window-in-dwm/428908#428908
+        export _JAVA_AWT_WM_NONREPARENTING=1
+
         # These are unnecessary on  NixOS, but who knows where
         # this file ends up.
         # LANG=en_US.UTF-8
         # LC_ALL="en_US.UTF-8"
         # LC_CTYPE="en_US.UTF-8"
         # LC_MESSAGES="C"
+
         # ==============================================================
         # fzf ==========================================================
         # ==============================================================
