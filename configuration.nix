@@ -416,6 +416,7 @@ in
         nnoremap <leader><C-g> :Commits<CR>
         nnoremap <leader><C-p> :BCommits<CR>
         nnoremap <leader><C-h> :History<CR>
+        nnoremap <leader><C-i> :BD<CR>
         " TODO this may not be needed now that YouCompleteMe is used
         " imap <c-x><c-l> <plug>(fzf-complete-line)
 
