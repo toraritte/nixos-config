@@ -229,7 +229,9 @@ in
         vim-elixir
         vim-obsession
         vim-peekaboo
-        # vim-signify # use fugitive's `:Gdiff :0` instead
+        # Consider using fugitive's `:Gdiff :0` instead
+        # see https://stackoverflow.com/questions/15369499/how-can-i-view-git-diff-for-any-commit-using-vim-fugitive
+        # vim-signify
         vim-unimpaired
         vim-vinegar
         wombat256
@@ -416,6 +418,24 @@ in
         nnoremap <leader><C-h> :History<CR>
         " TODO this may not be needed now that YouCompleteMe is used
         " imap <c-x><c-l> <plug>(fzf-complete-line)
+
+        " https://github.com/junegunn/fzf.vim/pull/733#issuecomment-559720813
+        function! s:list_buffers()
+          redir => list
+          silent ls
+          redir END
+          return split(list, "\n")
+        endfunction
+
+        function! s:delete_buffers(lines)
+          execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+        endfunction
+
+        command! BD call fzf#run(fzf#wrap({
+          \ 'source': s:list_buffers(),
+          \ 'sink*': { lines -> s:delete_buffers(lines) },
+          \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+        \ }))
 
         " UndoTree {{{2
         let g:undotree_ShortIndicators = 1
