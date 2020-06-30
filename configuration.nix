@@ -24,6 +24,7 @@ in
   home-manager.users.toraritte = {
 
     home.packages = with pkgs; [
+      cifs-utils
       dmenu
       fzf
       google-chrome
@@ -235,12 +236,17 @@ in
         vim-unimpaired
         vim-vinegar
         wombat256
+        gruvbox-community
         # yankring TODO: doesn't work and there is an update from 2019 that is not is vimPlugins yet
         YouCompleteMe
       ];
       # TODO read it from a .vimrc instead
       extraConfig = ''
-        colorscheme wombat256mod
+
+        " colorscheme wombat256mod
+        set background=dark
+        let g:gruvbox_contrast_dark = 'hard'
+        colorscheme gruvbox
 
         set encoding=utf-8
         set noequalalways
@@ -266,9 +272,11 @@ in
         set showmatch
         set matchtime=2
         set hidden
-        set listchars=tab:⇥\ ,trail:␣,extends:⇉,precedes:⇇,nbsp:·,eol:.
+        set listchars=tab:⇥\ ,trail:␣,extends:⇉,precedes:⇇,nbsp:·,eol:¬
         set ignorecase
         set smartcase
+
+        autocmd FileType erl setlocal ts=4 sw=4 sts=4 et
 
         " https://vi.stackexchange.com/questions/6/how-can-i-use-the-undofile
         if !isdirectory($HOME."/.vim")
@@ -331,6 +339,16 @@ in
 
         " === Key mappings    {{{1
         " ================
+
+        " Temporarily enable/disable YouCompleteMe
+        nnoremap <leader>e :unlet b:ycm_largefile<CR>
+        " editing commands without YCM
+        nnoremap <leader>i :let b:ycm_largefile = 1<CR>i
+        nnoremap <leader>I :let b:ycm_largefile = 1<CR>I
+        nnoremap <leader>o :let b:ycm_largefile = 1<CR>o
+        nnoremap <leader>O :let b:ycm_largefile = 1<CR>O
+        nnoremap <leader>a :let b:ycm_largefile = 1<CR>a
+        nnoremap <leader>A :let b:ycm_largefile = 1<CR>A
 
         " Auto-close mappings {{{2
         " https://stackoverflow.com/a/34992101/1498178
@@ -530,9 +548,12 @@ in
         set -g visual-activity off
         set -g visual-bell off
         set -g visual-silence off
-        # # set -g window-active-style bg=black,fg=colour249
+        # set -g window-active-style bg=black,fg=colour249
         set -g window-style bg=colour234,fg=white
         set -g word-separators " -_@"
+
+        # ctrl-b ctrl-F9 will toggle statuts bar visibility
+        bind-key -n C-F9 set-option -g status
       '';
     };
 
