@@ -427,13 +427,14 @@ in
         nnoremap <leader><C-m> :History/<CR>
         nnoremap <leader><C-o> :Files<CR>
         nnoremap <leader><C-l> :Lines<CR>
-        nnoremap <leader><C-b> :BLines<CR>
+        nnoremap <leader><C-r> :BLines<CR>
         nnoremap <leader><C-k> :Buffers<CR>
         nnoremap <leader><C-j> :Ag<CR>
         nnoremap <leader><C-w> :Windows<CR>
         nnoremap <leader><C-g> :Commits<CR>
         nnoremap <leader><C-p> :BCommits<CR>
         nnoremap <leader><C-h> :History<CR>
+        nnoremap <leader><C-u> :Marks<CR>
         nnoremap <leader><C-i> :BD<CR>
         " TODO this may not be needed now that YouCompleteMe is used
         " imap <c-x><c-l> <plug>(fzf-complete-line)
