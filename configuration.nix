@@ -26,8 +26,10 @@ in
     home.packages = with pkgs; [
       cifs-utils
       dmenu
+      ffmpeg
       fzf
       google-chrome
+      mc
       nixops
       par
       remmina
@@ -624,6 +626,7 @@ in
     curl
     git
     htop
+    mc
     pavucontrol
     tree
   ];
