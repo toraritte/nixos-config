@@ -423,6 +423,7 @@ in
 
         " airline {{{2
         let g:airline_theme='distinguished'
+        let g:airline#extensions#bufferline#overwrite_variables = 0
 
         " fzf-vim {{{2
         nnoremap <leader><C-n> :History:<CR>
@@ -458,6 +459,13 @@ in
           \ 'sink*': { lines -> s:delete_buffers(lines) },
           \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
         \ }))
+
+        " bufferline {{{2
+        let g:bufferline_active_buffer_left = '['
+        let g:bufferline_active_buffer_right = ']'
+        let g:bufferline_fname_mod = ':.'
+        let g:bufferline_pathshorten = 1
+        let g:bufferline_rotate = 1
 
         " UndoTree {{{2
         let g:undotree_ShortIndicators = 1
