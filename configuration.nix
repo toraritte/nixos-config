@@ -43,6 +43,7 @@ in
       niv
       nixops
       par
+      rclone
       remmina
       signal-desktop
       silver-searcher
