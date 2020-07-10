@@ -423,6 +423,8 @@ in
 
         " airline {{{2
         let g:airline_theme='distinguished'
+        " vim-airline was overwriting vim-bufferline settings
+        " but this prevents it. See bufferline settings below.
         let g:airline#extensions#bufferline#overwrite_variables = 0
 
         " fzf-vim {{{2
@@ -443,6 +445,7 @@ in
         " imap <c-x><c-l> <plug>(fzf-complete-line)
 
         " https://github.com/junegunn/fzf.vim/pull/733#issuecomment-559720813
+        " (modification: added bang (!) at the end of `bwipeout`
         function! s:list_buffers()
           redir => list
           silent ls
@@ -451,7 +454,7 @@ in
         endfunction
 
         function! s:delete_buffers(lines)
-          execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+          execute 'bwipeout!' join(map(a:lines, {_, line -> split(line)[0]}))
         endfunction
 
         command! BD call fzf#run(fzf#wrap({
