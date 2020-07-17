@@ -21,12 +21,15 @@ in
       (import "${home-manager}/nixos")
     ];
 
+  # TODO https://www.reddit.com/r/NixOS/comments/ec3je7/managing_configurationnix_and_homenix/
   home-manager.users.toraritte = {
 
     home.packages = with pkgs; [
       cifs-utils
+      cmus
       dmenu
       ffmpeg
+      fim
       fzf
       google-chrome
       mc
@@ -231,7 +234,7 @@ in
         vim-bufferline
         vim-elixir
         vim-obsession
-        vim-peekaboo
+        # vim-peekaboo
         # Consider using fugitive's `:Gdiff :0` instead
         # see https://stackoverflow.com/questions/15369499/how-can-i-view-git-diff-for-any-commit-using-vim-fugitive
         # vim-signify
@@ -240,7 +243,7 @@ in
         wombat256
         gruvbox-community
         # yankring TODO: doesn't work and there is an update from 2019 that is not is vimPlugins yet
-        YouCompleteMe
+        # YouCompleteMe REMINDER: never use it again; eats more RAM than chrome
       ];
       # TODO read it from a .vimrc instead
       extraConfig = ''
@@ -342,16 +345,6 @@ in
         " === Key mappings    {{{1
         " ================
 
-        " Temporarily enable/disable YouCompleteMe
-        nnoremap <leader>e :unlet b:ycm_largefile<CR>
-        " editing commands without YCM
-        nnoremap <leader>i :let b:ycm_largefile = 1<CR>i
-        nnoremap <leader>I :let b:ycm_largefile = 1<CR>I
-        nnoremap <leader>o :let b:ycm_largefile = 1<CR>o
-        nnoremap <leader>O :let b:ycm_largefile = 1<CR>O
-        nnoremap <leader>a :let b:ycm_largefile = 1<CR>a
-        nnoremap <leader>A :let b:ycm_largefile = 1<CR>A
-
         " Auto-close mappings {{{2
         " https://stackoverflow.com/a/34992101/1498178
         inoremap <leader>" ""<left>
@@ -441,8 +434,7 @@ in
         nnoremap <leader><C-h> :History<CR>
         nnoremap <leader><C-u> :Marks<CR>
         nnoremap <leader><C-i> :BD<CR>
-        " TODO this may not be needed now that YouCompleteMe is used
-        " imap <c-x><c-l> <plug>(fzf-complete-line)
+        imap <c-x><c-l> <plug>(fzf-complete-line)
 
         " https://github.com/junegunn/fzf.vim/pull/733#issuecomment-559720813
         " (modification: added bang (!) at the end of `bwipeout`
