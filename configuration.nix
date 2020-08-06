@@ -2,6 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+# Figure out how to  pin nixpkgs in configuration.nix.
+# The issue  below has  a lot of  good info,  but they
+# need  to explored  (and understood;  such as  how do
+# overlays and nix flakes come in the picture?)
+# https://github.com/NixOS/nixpkgs/issues/62832
+# => https://github.com/NixOS/nixpkgs/issues/35411#issuecomment-368172579
+
 { config, pkgs, ... }:
 
 # how the fuck does one get fetchFromGitHub to work here?
@@ -33,6 +40,7 @@ in
       fzf
       google-chrome
       mc
+      niv
       nixops
       par
       remmina
