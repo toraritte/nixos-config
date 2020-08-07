@@ -46,6 +46,7 @@ in
       rclone
       remmina
       signal-desktop
+      unzip
       silver-searcher
       st
       tor-browser-bundle-bin
