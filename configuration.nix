@@ -40,7 +40,6 @@ in
       fzf
       google-chrome
       mc
-      niv
       nixops
       par
       rclone
