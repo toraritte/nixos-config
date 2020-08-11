@@ -171,11 +171,17 @@ in
         alias dt="date +%Y/%m/%d-%H:%M"
         alias r='fc -s' # repeat the last command
         alias tmux='tmux -2' # make tmux support 256 color
+
         alias gl='git v --color=always | less -r'
-        alias ga='git van --color=always | less -r'
-        alias gd='git vn --color=always | less -r'
+        alias glv='git v --color=always --all | less -r'
         alias glh="gl | head"
+
+        alias ga='git van --color=always | less -r'
+        alias gav='git van --color=always --all | less -r'
         alias gah="ga | head"
+
+        alias gd='git vn --color=always | less -r'
+        alias gdv='git vn --color=always --all | less -r'
         alias gdh="gd | head"
 
         # http://www.gnu.org/software/bash/manual/bashref.html#Special-Parameters
@@ -212,10 +218,10 @@ in
 	st = "status";
         lo = "log --pretty=format:\"%C(yellow)%h%Creset %s%n%C(magenta)%C(bold)%an%Creset %ar\" --graph";
 	# https://stackoverflow.com/questions/21116069/decent-git-branch-visualization-tool#21116982
-        van = "log --pretty=format:'%C(yellow)%h%Creset %ad %C(magenta)%C(bold)%cn%Creset %s %C(auto)%d%C(reset)' --all --graph --date=format:%Y/%m/%d_%H%M";
-        vn = "log --pretty=format:'%C(yellow)%h%Creset %ad %s %C(auto)%d%C(reset)' --all --graph --date=format:%Y/%m/%d_%H%M";
-        v = "log --graph --oneline --decorate --all";
-	vo = "log --graph --decorate --all";
+        van = "log --pretty=format:'%C(yellow)%h%Creset %ad %C(magenta)%C(bold)%cn%Creset %s %C(auto)%d%C(reset)' --graph --date=format:%Y/%m/%d_%H%M";
+        vn = "log --pretty=format:'%C(yellow)%h%Creset %ad %s %C(auto)%d%C(reset)' --graph --date=format:%Y/%m/%d_%H%M";
+        v = "log --graph --oneline --decorate";
+	vo = "log --graph --decorate";
       };
 
       extraConfig = {
