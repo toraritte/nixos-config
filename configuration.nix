@@ -39,6 +39,7 @@ in
       fim
       fzf
       google-chrome
+      irssi
       mc
       nixops
       par
@@ -49,6 +50,7 @@ in
       silver-searcher
       st
       tor-browser-bundle-bin
+      youtube-dl
     ];
 
     # the meaning is the same as `services.<x>.enable` in nixos - install and use with settings
