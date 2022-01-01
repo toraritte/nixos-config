@@ -32,6 +32,7 @@ in
   home-manager.users.toraritte = {
 
     home.packages = with pkgs; [
+      bc
       cifs-utils
       cmus
       dmenu
@@ -40,18 +41,25 @@ in
       fzf
       google-chrome
       irssi
+      keepass
+      libreoffice
       mc
       nixops
       par
       rclone
       remmina
       signal-desktop
+      thunderbird
       unzip
       silver-searcher
+      slock
       st
-      tor-browser-bundle-bin
-      youtube-dl
+      wirelesstools
+      libxml2
     ];
+
+    # https://github.com/nix-community/home-manager/issues/254
+    manual.manpages.enable = false;
 
     # the meaning is the same as `services.<x>.enable` in nixos - install and use with settings
 
@@ -77,6 +85,12 @@ in
         # ==============================================================
         # prompt =======================================================
         # ==============================================================
+
+        if [ ! -f ~/git-prompt.sh ]; then
+          curl -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+        fi
+        source /home/toraritte/git-prompt.sh
+
         # + for staged, * if unstaged.
         GIT_PS1_SHOWDIRTYSTATE=1¬
         # $ if something is stashed.
@@ -251,6 +265,7 @@ in
         vim-bufferline
         vim-elixir
         vim-obsession
+        vim-ragtag
         # vim-peekaboo
         # Consider using fugitive's `:Gdiff :0` instead
         # see https://stackoverflow.com/questions/15369499/how-can-i-view-git-diff-for-any-commit-using-vim-fugitive
@@ -582,9 +597,13 @@ in
 
   };
 
+  programs.slock.enable = true;
+  programs.ssh.startAgent = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # trace: warning: In file /etc/nixos/configuration.nix
   # a list is being assigned to the option config.boot.initrd.luks.devices.
@@ -598,12 +617,12 @@ in
   #     [ { name = "root"; ...} ]
   boot.initrd.luks.devices = {
     luksroot = {
-      device = "/dev/" CHANGE THIS;
+      device = "/dev/disk/by-uuid/da9f2329-e45f-4302-b77a-76f47a3e8f52";
       preLVM = true;
     };
   };
 
-  networking.hostName = CHANGE THIS; # Define your hostname.
+  networking.hostName = "mandarine"; # Define your hostname.
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -613,6 +632,15 @@ in
   networking.useDHCP = false;
   networking.interfaces.enp0s25.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
+
+  virtualisation.docker.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
+  # users.extraGroups.libvirtd.members = [ "toraritte" ];
+
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "toraritte" ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -630,7 +658,7 @@ in
   };
 
   # Set your time zone.
-  # time.timeZone = "America/Sacramento";
+  time.timeZone = "America/New_York";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -654,6 +682,8 @@ in
   # services.freeswitch.enable = true;
   services.tor.client.enable = true;
 
+  security.pam.services.toraritte.sshAgentAuth = true;
+
   # https://releases.nixos.org/nix-dev/2015-July/017657.html
   # https://nixos.org/nixos/options.html#services.logind
   # https://www.freedesktop.org/software/systemd/man/logind.conf.html
@@ -676,7 +706,7 @@ in
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 3389 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -687,6 +717,7 @@ in
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.bluetooth.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -701,13 +732,16 @@ in
 
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
-  services.xserver.libinput.tapping = false;
+  services.xserver.libinput.touchpad.tapping = false;
+
+  # services.xrdp.enable = true;
+  # services.xrdp.defaultWindowManager = "none";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.toraritte = {
     createHome = true;
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "qemu-libvirtd" "libvirtd" "wheel" "video" "audio" "disk" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
     group = "users";
     home = "/home/toraritte";
     uid = 1000;
